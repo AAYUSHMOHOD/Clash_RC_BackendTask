@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}"/>
+</head>
+<body class="background1" style="text-align:center">
+    <a class="heading" id="header" name="Heading" title="By Aayush" href="#">
+        Welcome to my Cryptography Website
+    </a>
+    <form class="details" id="form" method="POST"> 
+        {% csrf_token %}
+        <div>
+            <label for="newusernameL">Username : </label>  
+            <input type="text" id="newusernameL" name="newusernameL">
+            <br>
+            <br>
+        </div>
+        <hr>
+        <div>
+            <br>
+            <label for="PasswordL">Password: </label>  
+            <input type="password" id="PasswordL" name="PasswordL" value="">
+            <br>
+            <br>
+        </div>
+        <hr>
+        <div class="warning">
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <hr>
+        <div>
+            <input type="reset" value="Clear">
+            <br>
+            <input type="submit" value="Submit" name="SubmitL">
+            <hr>
+            <a class="nav" href="{% url 'register' %}">Signup</a>
+        </div>
+    </form>
+</body>
+</html>

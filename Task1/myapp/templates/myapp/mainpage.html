@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MainPage</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}"/>
+</head>
+<body class="background1">
+    <form id="form" method="POST">
+        {% csrf_token %}
+        <ul class="navbar">
+            <li class="navlinks"><a class="nav" href="#">Home</a></li>
+            <li class="navlinks"><a class="nav" href="#">News</a></li>
+            <li class="navlinks"><a class="nav" href="#">Contact</a></li>
+            <li class="navlinks"><a class="nav" href="#">About</a></li>
+            <li class="navlinks"><a class="nav" href="{% url 'login' %}">Logout</a></li>
+        </ul>
+        <div style="text-align: center; padding-top: 5%;">
+            <button class="button" name="enc" id="enc">Encode</button>
+            &emsp;
+            <button class="button" name="dec" id="dec">Decode</button>
+        </div>
+        <div class="Midportion">
+            <div class="inp">
+                INPUT:
+                <br>
+                <input type="text" name="inpc">
+            </div>
+            <div class="mid">
+                Enter Code:
+                <br>
+                <input type="text" id="ipstr" name="ipstr">
+                <div class="midrop">
+                    <br><br>
+                    <select name="cipher" id="cipher">
+                        <option value="Wrong">Encoding/Decoding Type</option>
+                        <option value="CaesarCipher">Caesar Cipher</option>
+                        <option value="Base64">Base64</option>
+                        <option value="MorseCode">Morse Code</option>
+                        <option value="InverseCasing">Inverse Casing</option>
+                        <option value="VigenereCipher">Vigenere Cipher</option>
+                        <option value="CameltoSnake">Camel case to Snake case</option>
+                    </select>
+                </div> 
+                <br><br>
+                <input type="submit" value="Run">         
+            </div>
+            <div class="otp">
+                OUTPUT:
+                <div class="outp">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div>
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+    <footer class="foot">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        Follow of Social media
+        <br>
+        <a href="#" class="fa fa-linkedin"></a>
+        <a href="#" class="fa fa-pinterest"></a>
+        <a href="#" class="fa fa-reddit"></a>
+    </footer>
+</body>
+</html>

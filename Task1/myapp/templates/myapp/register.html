@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}"/>
+</head>
+<body class="background1" style="text-align:center">
+    <a class="heading" id="header" name="Heading" title="By Aayush" href="#">
+        Welcome to my Cryptography Website
+    </a>
+    <form class="details" id="form" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="newusername">Username : </label>  
+            <input type="text" id="newusername" name="newusername">
+            <br>
+            <br>
+        </div>
+        <hr>
+        <div>
+            <label for="Email">Email id : </label>
+            <input type="email" id="Email" name="Email">
+        </div>
+        <hr>
+        <div>
+            <label for="Mobile">Mobile Number : </label>
+            <input type="number" id="Mobile" name="Mobile" maxlength="10">
+        </div>
+        <hr>
+        <div>
+            <br>
+            <label for="Password">Password : </label> 
+            <input type="password" id="Password" name="Password" value="">
+            <br>
+            <br>
+        </div>
+        <hr>
+        <div>
+            <br>
+            <label for="ConfirmPassword">Confirm Password : </label> 
+            <input type="password" id="ConfirmPassword" name="ConfirmPassword" value="">
+            <br>
+            <br>
+        </div>
+        <hr>
+        <br>
+        <div class="warning">
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <hr>
+        <div>
+            <input type="reset" value="Clear">
+            <br>
+            <input type="submit" value="Submit" name="SubmitR">
+            <hr>
+            <a class="nav" href="{% url 'login' %}">Login</a>
+        </div>
+    </form>
+</body>
+</html>
