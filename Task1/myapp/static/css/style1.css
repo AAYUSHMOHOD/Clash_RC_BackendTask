@@ -131,22 +131,12 @@
 
 .button
 {
+    display: inline;
     background-color: aliceblue;
     color: black;
     font-size: x-large;
     border: 1% solid black;
     border-radius: 20%;
-}
-
-.button:hover
-{
-    background-color: rgb(62, 61, 65);
-    color: white;
-}
-
-.button:active, .button:focus
-{
-    background-color: rgb(210, 114, 95);
 }
 
 .encodeco

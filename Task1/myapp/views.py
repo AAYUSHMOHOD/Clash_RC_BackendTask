@@ -1,7 +1,5 @@
-from email import message
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.auth import authenticate
 import re
 
@@ -50,9 +48,10 @@ def login(request):
         pas = request.POST['PasswordL']
         if authenticate(request,username=newusername,password=pas) != None :
             message.append("Logged in successfully")
-            return render(request, 'myapp/mainpage.html', context)
+            return redirect("mainpage")
         else:
             message.append("Invalid Credentials")
+            return render(request, 'myapp/login.html', context)
     return render(request, 'myapp/login.html', context)
 
 
@@ -64,34 +63,52 @@ def mainpage(request):
     if request.method == 'POST' :
         code = str(request.POST['ipstr'])
         cip = str(request.POST['cipher'])
-        meth = 1
-        if "enc" in request.POST:
-            meth = 1
-        if "dec" in request.POST:
-            meth = 2
-        if cip == "Wrong":
+        inpt = request.POST['inpc']
+        try :
+            if "enc" in request.POST['met']:
+                meth = 1
+            if "dec" in request.POST['met']:
+                meth = 2
+        except:
+            meth=0
+        if code == "":
+            message.append("Enter a Code")
+        elif cip == "Wrong":
             message.append("Select a valid Cipher")
+        elif meth == 0:
+            message.append("Select Encoding/Decoding")
         elif cip == "CaesarCipher":
-            inpt = int(request.POST['inpc'])
-            message.append(caesarcipher(code,inpt,meth))
+            if inpt=="":
+                message.append("Enter neumeric input")
+            else :
+                inpt = int(inpt)
+                message.append(caesarcipher(code,inpt,meth))
         elif cip == "Base64":
             import base64
             if meth==1:
                 a=base64.b64encode(bytes(code, 'utf-8'))
                 message.append(a.decode('utf-8'))
-            if meth==2:
-                a=base64.b64decode(code)
-                message.append(a.decode("ascii"))
+            elif meth==2:
+                try :
+                    a=base64.b64decode(code)
+                    message.append(a.decode("ascii"))
+                except:
+                    message.append("Entered code is not Base64")
         elif cip == "MorseCode":
             code=code.upper()
-            message.append(morse(code,meth))
+            if morse(code,meth) == "":
+                message.append("Entered is not a Morse Code")
+            else :
+                message.append(morse(code,meth))
         elif cip == "InverseCasing":
             message.append(code.swapcase())
         elif cip == "VigenereCipher":
-            inpt = str(request.POST['inpc'])
-            inpt=inpt.upper()
-            code=code.upper()
-            message.append(vincipher(code,inpt,meth))
+            if inpt=="":
+                message.append("Enter string input")
+            else:
+                inpt=inpt.upper()
+                code=code.upper()
+                message.append(vincipher(code,inpt,meth))
         elif cip == "CameltoSnake":
             message.append(cameltosnake(code,meth))
     return render(request, 'myapp/mainpage.html', context)

@@ -19,9 +19,11 @@
             <li class="navlinks"><a class="nav" href="{% url 'login' %}">Logout</a></li>
         </ul>
         <div style="text-align: center; padding-top: 5%;">
-            <button class="button" name="enc" id="enc">Encode</button>
+            <label for="enc" class="button">Encode</label>
+            <input type="radio" name="met" value="enc">
             &emsp;
-            <button class="button" name="dec" id="dec">Decode</button>
+            <label for="dec" class="button">Decode</label>
+            <input type="radio" name="met" value="dec">
         </div>
         <div class="Midportion">
             <div class="inp">
